@@ -27,6 +27,7 @@ const navBarList = document.getElementById("navbar__list"); //store the ul in a 
 const sections = document.querySelectorAll("section");
 
 
+
 let options = {
     rootMargin: '0px',
     threshold: 0.6
@@ -57,7 +58,8 @@ sections.forEach(function createNavIteam(section){
     var nodeText = section.getAttribute('data-nav');
     link.setAttribute('data-nav',nodeText);
     link.style.color = 'red';
-    link.style.margin = '0px 20px';
+    link.style.margin = '0px 10px';
+    link.style.padding ='0px 10px';
     link.innerText = nodeText; //add content to <a></a>
     link.style.cursor = 'pointer';
 
@@ -69,8 +71,18 @@ sections.forEach(function createNavIteam(section){
 });
 navBarList.appendChild(listFragment);
 
-console.log(navBarList.innerHTML);
+//console.log(navBarList.innerHTML);
 
+
+//set active links for active classes
+function setActiveLink(navItems,item){
+    navItems.forEach((navLink) => {
+        navLink.classList.remove('active-link');
+        if(navLink.innerText == item.getAttribute('data-nav')){
+            navLink.classList.add('active-link');
+        }
+    });
+};
 
 // Add class 'active' to section when near top of viewport
 
@@ -79,14 +91,18 @@ let observer = new IntersectionObserver((items)=>{
         item.target.classList.remove('your-active-class');
         if(item.isIntersecting){
             item.target.classList.add('your-active-class');
-        }
+            setActiveLink(navLinks,item.target);
+        }        
     });
 }, options);
 
 
-sections.forEach((section) => {
+sections.forEach((section) => { //set active-class for sections
     observer.observe(section);
 });
+
+const navLinks = document.querySelectorAll("a");
+
 
 // Scroll to anchor ID using scrollTO event
 
