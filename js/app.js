@@ -26,6 +26,11 @@
 const navBarList = document.getElementById("navbar__list"); //store the ul in a var
 const sections = document.querySelectorAll("section");
 
+
+let options = {
+    rootMargin: '0px',
+    threshold: 0.6
+};
 /**
  * End Global Variables
  * Start Helper Functions
@@ -69,6 +74,19 @@ console.log(navBarList.innerHTML);
 
 // Add class 'active' to section when near top of viewport
 
+let observer = new IntersectionObserver((items)=>{
+    items.forEach((item)=> {
+        item.target.classList.remove('your-active-class');
+        if(item.isIntersecting){
+            item.target.classList.add('your-active-class');
+        }
+    });
+}, options);
+
+
+sections.forEach((section) => {
+    observer.observe(section);
+});
 
 // Scroll to anchor ID using scrollTO event
 
