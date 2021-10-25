@@ -23,13 +23,17 @@
  * 
 */
 
+const navBarList = document.getElementById("navbar__list"); //store the ul in a var
+const sections = document.querySelectorAll("section");
 
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
-
+function scrollToSection(place){
+    place.scrollIntoView({'behavior':'smooth'});
+};
 
 
 /**
@@ -39,23 +43,27 @@
 */
 
 // build the nav
-const navBarList = document.getElementById("navbar__list"); //store the ul in a var
-const sections = document.querySelectorAll("section");
+
 var listFragment = new DocumentFragment();
-//const navElements = 
+
 sections.forEach(function createNavIteam(section){
     var listItem = document.createElement('li'); //<li></li>
     var link = document.createElement('a');     //<a></a>
     var nodeText = section.getAttribute('data-nav');
     link.setAttribute('data-nav',nodeText);
     link.style.color = 'red';
-    link.style.margin = '0px 20px'
-    link.innerHTML = nodeText; //add content to <a></a>
+    link.style.margin = '0px 20px';
+    link.innerText = nodeText; //add content to <a></a>
+    link.style.cursor = 'pointer';
+
+    link.addEventListener('click',() => {scrollToSection(section)});
+
     listItem.appendChild(link);
     //console.log(listItem.innerHTML);
     listFragment.appendChild(listItem);
 });
 navBarList.appendChild(listFragment);
+
 console.log(navBarList.innerHTML);
 
 
@@ -63,7 +71,6 @@ console.log(navBarList.innerHTML);
 
 
 // Scroll to anchor ID using scrollTO event
-
 
 /**
  * End Main Functions
