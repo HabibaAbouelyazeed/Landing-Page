@@ -39,6 +39,24 @@
 */
 
 // build the nav
+const navBarList = document.getElementById("navbar__list"); //store the ul in a var
+const sections = document.querySelectorAll("section");
+var listFragment = new DocumentFragment();
+//const navElements = 
+sections.forEach(function createNavIteam(section){
+    var listItem = document.createElement('li'); //<li></li>
+    var link = document.createElement('a');     //<a></a>
+    var nodeText = section.getAttribute('data-nav');
+    link.setAttribute('data-nav',nodeText);
+    link.style.color = 'red';
+    link.style.margin = '0px 20px'
+    link.innerHTML = nodeText; //add content to <a></a>
+    listItem.appendChild(link);
+    //console.log(listItem.innerHTML);
+    listFragment.appendChild(listItem);
+});
+navBarList.appendChild(listFragment);
+console.log(navBarList.innerHTML);
 
 
 // Add class 'active' to section when near top of viewport
